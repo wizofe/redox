@@ -2,13 +2,15 @@
 <img alt="Redox" width="346" src="https://github.com/redox-os/assets/raw/master/logos/redox/logo.png">
 </p>
 
+# Introduction
+
 **Redox** is an operating system written in Rust, a language with focus on safety and high performance. Redox, following the microkernel design, aims to be secure, usable, and free. Redox is inspired by previous kernels and operating systems, such as SeL4, MINIX, Plan 9, and BSD.
 
 Redox _is not_ just a kernel, it's a **full-featured Operating System**, providing packages (memory allocator, file system, display manager, core utilities, etc.) that together make up a functional and convenient operating system. You can loosely think of it as the GNU or BSD ecosystem, but in a memory safe language and with modern technology. See [this list](#ecosystem) for overview of the ecosystem.
 
-The website can be found at https://www.redox-os.org.
+The website can be found [here](https://www.redox-os.org).
 
-Please make sure you use the **latest nightly** of `rustc` before building (for more troubleshooting, see ["Help! Redox won't compile!"](#compile-help)).
+Please make sure you use the **latest nightly** of `rustc` before building (for more troubleshooting, see ["Help! Redox won't compile!"](#help!-redox-won't-compile)).
 
 [![Travis Build Status](https://travis-ci.org/redox-os/redox.svg?branch=master)](https://travis-ci.org/redox-os/redox)
 [![Downloads](https://img.shields.io/github/downloads/redox-os/redox/total.svg)](https://github.com/redox-os/redox/releases)
@@ -17,16 +19,16 @@ Please make sure you use the **latest nightly** of `rustc` before building (for 
 
 ## Contents
 
-* [What it looks like](#screenshots)
+* [What it looks like](#what-it-looks-like)
 * [Ecosystem](#ecosystem)
-* [Help! Redox won't compile](#compile-help)
-* [Contributing to Redox](#contributing)
-* [Cloning, Building and running](#cloning-building-running)
- * [Quick Setup](#quick-setup)
- * [Manual Setup](#manual-setup)
- * [Setup Using Docker](#setup-using-docker)
+* [Help! Redox won't compile](#help!-redox-won't-compile)
+* [Contributing to Redox](#contributing-to-redox)
+* [Cloning, Building and Running](#cloning-building-and-running)
+* [Quick Setup](#quick-setup)
+* [Manual Setup](#manual-setup)
+* [Setup Using Docker](#setup-using-docker)
 
-## <a name="screenshots"> What it looks like </a>
+## What it looks like
 
 <img alt="Redox" height="150" src="https://github.com/redox-os/assets/raw/master/screenshots/Senza%20titolo.jpeg">
 <img alt="Redox" height="150" src="https://github.com/redox-os/assets/raw/master/screenshots/redox running.jpeg">
@@ -36,7 +38,7 @@ Please make sure you use the **latest nightly** of `rustc` before building (for 
 <img alt="Redox" height="150" src="https://github.com/redox-os/assets/raw/master/screenshots/Boot.png">
 <img alt="Redox" height="150" src="https://github.com/redox-os/assets/raw/master/screenshots/IMG_1459.PNG">
 
-## <a name="ecosystem"> Ecosystem </a>
+## Ecosystem
 
 The ecosystem and software Redox OS provides is listed below.
 
@@ -73,7 +75,7 @@ The ecosystem and software Redox OS provides is listed below.
 | The old kernel                                                              | **abandoned**
 | [ZFS](https://github.com/redox-os/zfs)                                      | **abandoned, superseded by [TFS](https://github.com/ticki/tfs)**
 
-## <a name="compile-help"> Help! Redox won't compile! </a>
+## Help! Redox won't compile
 
 Sometimes things go wrong when compiling. Try the following before opening an issue:
 
@@ -88,82 +90,85 @@ Sometimes things go wrong when compiling. Try the following before opening an is
 
 and then rebuild!
 
-## <a name="contributing"> Contributing to Redox </a>
+## Contributing to Redox
 
 If you're interested in this project, and you'd like to help us out, [here](CONTRIBUTING.md) is a list of ways you can do just that.
 
-## <a name="cloning-building-running"> Cloning, Building and Running </a>
+## Cloning, Building and Running
 
 Redox is big, even compressed. Downloading the full history may take a lot of bandwidth, and can even be costly on some data plans. Clone at your own risk!
 
-### <a name="quick-setup" /> Quick Setup </a>
+### Quick Setup
 
 ```bash
-$ cd path/to/your/projects/folder/
+cd path/to/your/projects/folder/
 
 # Run bootstrap setup
-$ curl -sf https://raw.githubusercontent.com/redox-os/redox/master/bootstrap.sh -o bootstrap.sh && bash -e bootstrap.sh
+curl -sf https://raw.githubusercontent.com/redox-os/redox/master/bootstrap.sh -o bootstrap.sh && bash -e bootstrap.sh
 
 #Change to project directory
-$ cd redox
+cd redox
 
 # Build Redox
-$ make all
+make all
 
 # Launch using QEMU
-$ make qemu
+make qemu
 # Launch using QEMU without using KVM (Kernel-based Virtual Machine). Try if QEMU gives an error.
-$ make qemu kvm=no
+make qemu kvm=no
 ```
 
 #### QEMU with KVM
 
 To use QEMU with KVM (Kernel-based Virtual Machine), which is faster than without KVM, you need a CPU with Intel® Virtualization Technology (Intel® VT) or AMD Virtualization™ (AMD-V™) support. Most systems have this disabled by default, so you may need to reboot, go into the BIOS, and enable it.
 
-### <a name="manual-setup"> Manual Setup </a>
+### Manual Setup
 
 To manually clone, build and run Redox using a Unix-based host, run the following commands (with exceptions, be sure to read the comments):
+
 ```bash
-$ cd path/to/your/projects/folder/
+cd path/to/your/projects/folder/
 
 # HTTPS
-$ git clone https://github.com/redox-os/redox.git --origin upstream --recursive
+git clone https://github.com/redox-os/redox.git --origin upstream --recursive
 # SSH
-$ git clone git@github.com:redox-os/redox.git --origin upstream --recursive
+git clone git@github.com:redox-os/redox.git --origin upstream --recursive
 
-$ cd redox/
+cd redox/
 
 # Install/update dependencies
-$ ./bootstrap.sh -d
+./bootstrap.sh -d
 
 # Install rustup.rs
-$ curl https://sh.rustup.rs -sSf | sh
+curl https://sh.rustup.rs -sSf | sh
 
 # For successive builds start here. If this is your first build, just continue
 
 # Update git submodules
-$ git submodule update --recursive --init
+git submodule update --recursive --init
 
 # Build Redox
-$ make all
+make all
 
 # Launch using QEMU
-$ make qemu
+make qemu
 
 # Launch using QEMU without using KVM (Kernel-based Virtual Machine). Try if QEMU gives an error.
-$ make qemu kvm=no
+make qemu kvm=no
 
 # Launch using QEMU without using KVM (Kernel-based Virtual Machine) nor Graphics
 make qemu kvm=no vga=no
 ```
 
-### <a name="setup-using-docker"> Setup using Docker </a>
+### Setup using Docker
+
 We also provide docker image. After cloning this repository, please follow README under the `docker` directory.
 
 ### Updating the codebase using the Makefile
+
 To update the codebase run:
 
-```
+```bash
 make pull; make fetch
 ```
 
